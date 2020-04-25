@@ -96,6 +96,7 @@ public class SearchFragment extends Fragment {
     float[][][] inp = new float[1][TIME_SEQ][INPUT_NUM];
     float[][] out = new float[1][OUTPUT_NUM];
     int max_index = 0;
+    int max_index_bottom=0;
     int most_index = 0;
     //定義NNTthread----------------------------------------------------------------------------------------------------------------------------
     private HandlerThread mThread;
@@ -133,6 +134,8 @@ public class SearchFragment extends Fragment {
     {
         Bitmap Item_bitmap;
         String Item_name;
+        int Item_price;
+        String Item_description;
         String Item_location;
     }
     public class Recommand_Item_List
@@ -157,10 +160,10 @@ public class SearchFragment extends Fragment {
         }
         void updateFlipper(){
             if(data_completed) {
-                addflipper(Item[0].Item_bitmap, Item[0].Item_name, Item[0].Item_location
-                        , Item[1].Item_bitmap, Item[1].Item_name, Item[1].Item_location
-                        , Item[2].Item_bitmap, Item[2].Item_name, Item[2].Item_location
-                        , Item[3].Item_bitmap, Item[3].Item_name, Item[3].Item_location);
+                addflipper(Item[0].Item_bitmap, Item[0].Item_name,""+Item[0].Item_price, Item[0].Item_description, Item[0].Item_location
+                        , Item[1].Item_bitmap, Item[1].Item_name,""+Item[1].Item_price, Item[1].Item_description, Item[1].Item_location
+                        , Item[2].Item_bitmap, Item[2].Item_name, ""+Item[2].Item_price, Item[2].Item_description,Item[2].Item_location
+                        , Item[3].Item_bitmap, Item[3].Item_name, ""+Item[3].Item_price, Item[3].Item_description,Item[3].Item_location);
                 data_completed = false;
                 Log.d("Recommand_Item","data completed.");
             }
@@ -321,7 +324,6 @@ public class SearchFragment extends Fragment {
             RSSI_CObj[i]=new CountObj();
             RSSI_bottom_CObj[i]=new CountObj();
         }
-
         //繼承物件-----------------------------------------------------------------------------------------------------------------------------
         //標題-----------------------------------------------------------------------------------------------------------------------------------
         m_sw_blescan = (Switch)view.findViewById(R.id.sw_blescan);
@@ -352,14 +354,15 @@ public class SearchFragment extends Fragment {
                             new POST_position_id_TransTask().execute("" + ResultToBeaconID[predict_location]);
                             if(pre_predict_location!=predict_location){
                                 send_ad = false;
-                                Log.d("SearchFragment","different");
+                                Log.d("SearchFragment","get_beacon different");
                             }
                             else if(pre_predict_location==predict_location){
                                 Log.d("SearchFragment","same");
                                 if(!send_ad) {
                                     send_ad = true;
                                     get_beacon("" + ResultToBeaconID[predict_location]);
-                                    Log.d("SearchFragment","get_beacon");
+                                    Toast.makeText(mActivity, "New Activity~!", Toast.LENGTH_SHORT).show();
+                                    Log.d("SearchFragment","get_beacon"+ ResultToBeaconID[predict_location]);
                                 }
                             }
                             pre_predict_location = predict_location;
@@ -485,7 +488,7 @@ public class SearchFragment extends Fragment {
     public int DNNCompute() {
         Log.wtf("tflite: " , ""+tflite);
         int i=0 , counter=0;
-        int max_index_bottom;
+
         float max = 0;
         float[] bottom_beacon = new float[INPUT_NUM];
         float[] result = new float[OUTPUT_NUM];
@@ -496,16 +499,17 @@ public class SearchFragment extends Fragment {
         Log.wtf("Compute time:" , ""+consumingTime);
 
 
-//        for(i=0;i<INPUT_NUM;i++){bottom_beacon[i] = RSSI_bottom_CObj[i].getAvg();}
-//        for(counter = 0; counter < bottom_beacon.length; counter++){
-//            if(bottom_beacon[counter] > max && bottom_beacon[counter]!=70){
-//                max = bottom_beacon[counter];
-//                max_index_bottom = counter;
-//            }
-//        }
+        for(i=0;i<INPUT_NUM;i++){ bottom_beacon[i] = RSSI_bottom_CObj[i].getAvg();}
+        Log.d("RSSI_bottom",""+bottom_beacon[0]+","+bottom_beacon[1]+","+bottom_beacon[2]+","+bottom_beacon[3]+","+bottom_beacon[4]+","+bottom_beacon[5]+","+bottom_beacon[6]+","+bottom_beacon[7]+","+bottom_beacon[8]+","+bottom_beacon[9]+","+bottom_beacon[10]);
+        for(counter = 0,max=-100; counter < bottom_beacon.length; counter++){
+            if(bottom_beacon[counter] > max && bottom_beacon[counter]!=70){
+                max = bottom_beacon[counter];
+                max_index_bottom = counter;
+            }
+        }
 
 
-        for(i=0;i<OUTPUT_NUM;i++){result[i]=out[0][i];}
+        for(i=0,max=0;i<OUTPUT_NUM;i++){result[i]=out[0][i];}
         for (counter = 0; counter < result.length; counter++) {
             if (result[counter] > max) {
                 max = result[counter];
@@ -515,17 +519,20 @@ public class SearchFragment extends Fragment {
         Log.wtf("max index:",""+max_index);
         ResultQueue.inputArray_10item(max_index);
         most_index = ResultQueue.getMost();
-        predict_location = ((most_index/4)<INPUT_NUM)?(most_index/4):predict_location;
+        int predict_location_up=((most_index/4)<INPUT_NUM)?(most_index/4):predict_location;
+        int predict_location_bottom=max_index_bottom;
+//        predict_location = ((most_index/4)<INPUT_NUM)?(most_index/4):predict_location;
+        predict_location = (predict_location_bottom == predict_location_up) ? predict_location_up : predict_location;
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                int predict_location = most_index/4;
+//                int predict_location = most_index/4;
+//                int predict_location = max_index_bottom;
                 m_tv_predictresult.setText(""+most_index);
                 m_tv_predictlocation.setText("Location "+ ((most_index/4)));
                 nowp = ResultToPosition[predict_location];
                 route();
-                if(predict_location<26){
-                }
+
             }
         });
         return max_index;
@@ -566,39 +573,67 @@ public class SearchFragment extends Fragment {
             route_arr.clear();
             // 判斷路徑規則 先判斷 Y 再判斷 X
             route_arr.add(temp);
-            while (tempY < 2) {
-                tempY++;
-                temp = (tempX * 100) + tempY;
-                route_arr.add(temp);
-            }
+//            while (tempY < 2) {
+//                tempY++;
+//                temp = (tempX * 100) + tempY;
+//                route_arr.add(temp);
+//            }
             while (temp != destination) {
                 Log.d("SearchFragment", "" + temp);
+
+                if(destinationX==tempX){
+                    if(destinationY < tempY){
+                        tempY--;
+                    }
+                    else if(destinationY > tempY){
+                        tempY++;
+                    }
+                }
+                else if(destinationX > tempX){
+                    if(tempY < 2){
+                        tempY++;
+                    }
+                    else{
+                        tempX++;
+                    }
+                }
+                else if(destinationX < tempX){
+                    if(tempY < 2){
+                        tempY++;
+                    }
+                    else{
+                        tempX--;
+                    }
+                }
+
         //            if ((destinationY - tempY) > 0){
         //                tempY++;
         //            }
         //            else if((destinationY - tempY) == 0){
-                do {
-                    if ((destinationX - tempX) > 0) {
-                        if (tempY >= 0 && tempY <= 1) {
-                            tempY++;
 
-                        } else {
-                            tempX++;
-                        }
-                    } else if ((destinationX - tempX) == 0) {
-                        if (tempY != destinationY) {
-                            tempY--;
-                        }
-                    } else if ((destinationX - tempX) < 0) {
-                        if (tempY >= 0 && tempY <= 1) {
-                            tempY++;
-                        } else {
-                            tempX--;
-                        }
-                    }
-                    temp = (tempX * 100) + tempY;
-                    route_arr.add(temp);
-                } while ((destinationY - tempY) != 0);
+//                do {
+//                    if ((destinationX - tempX) > 0) {
+//                        if (tempY >= 0 && tempY <= 1) {
+//                            tempY++;
+//
+//                        } else {
+//                            tempX++;
+//                        }
+//                    } else if ((destinationX - tempX) == 0) {
+//                        if (tempY != destinationY) {
+//                            tempY--;
+//                        }
+//                    } else if ((destinationX - tempX) < 0) {
+//                        if (tempY >= 0 && tempY <= 1) {
+//                            tempY++;
+//                        } else {
+//                            tempX--;
+//                        }
+//                    }
+//                    temp = (tempX * 100) + tempY;
+//                    route_arr.add(temp);
+//                } while ((destinationY - tempY) != 0);
+
         //            }
         //            else if ((destinationY - nowpY) < 0){
         //                tempY--;
@@ -656,14 +691,16 @@ public class SearchFragment extends Fragment {
                         parserJson_random4(response);
                         if(!view_inited){
                             view_inited=true;
-                            get_random4();
+//                            get_random4();
                         }
                         break;
                     case API_ID_8_GET_BEACON:
+                        Log.d("SearchFragment","API_ID_8_GET_BEACON");
                         parserJson_beacon(response);
                         break;
                 }
             } catch (JSONException e) {
+                Log.d("SearchFragment","API_ID_8_GET_BEACON_F");
 //                parserJson_beacon(response);
                 e.printStackTrace();
             }
@@ -688,13 +725,13 @@ public class SearchFragment extends Fragment {
     }
 
     private void get_random4(int cat_id) {
-        Log.d("SearchFragment","get_random4()");
+        Log.d("SearchFragment","get_random4(),cat_id"+cat_id);
         String urlParkingArea = "http://140.129.25.75:8000/api/category-activities?random=4&&category_id="+cat_id;
         new TransTask().execute(urlParkingArea);
     }
 
     private void get_beacon(final String parms) {
-        Log.d("SearchFragment","get_beacon()");
+        Log.d("SearchFragment","get_beacon()"+parms);
         String urlParkingArea = "http://140.129.25.75:8000/api/beacons/"+parms;
         new TransTask().execute(urlParkingArea);
     }
@@ -746,8 +783,8 @@ public class SearchFragment extends Fragment {
         catch(JSONException e)
         {
             int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(getActivity(),"Get items failed!!", duration);
-            toast.show();
+//            Toast toast = Toast.makeText(getActivity(),"Get items failed!!", duration);
+//            toast.show();
             e.printStackTrace();
         }
     }
@@ -758,12 +795,16 @@ public class SearchFragment extends Fragment {
             JSONArray dataArray = random4item_list.getJSONArray("data");
             String home_url[] = new String[4];
             String home_text[] = new String[4];
+            String home_price[] = new String[4];
+            String home_description[] = new String[4];
             String home_beacon[] = new String[4];
             for(int i = 0; i < 4; i++){
                 home_url[i] = dataArray.getJSONObject(i).getString("image_url");
                 home_text[i] = dataArray.getJSONObject(i).getString("name");
+                home_price[i] = dataArray.getJSONObject(i).getString("price");
+                home_description[i] = dataArray.getJSONObject(i).getString("description");
                 home_beacon[i] = dataArray.getJSONObject(i).getJSONObject("category").getJSONArray("beacons").getJSONObject(0).getString("name");
-                downloadimage_item(home_url[i],home_text[i],home_beacon[i]);
+                downloadimage_item(home_url[i],home_text[i],home_price[i],home_description[i],home_beacon[i]);
             }
         }
         catch(JSONException e) {
@@ -773,17 +814,19 @@ public class SearchFragment extends Fragment {
 
     private void parserJson_beacon(JSONObject beacon_list) {
         Log.d("SearchFragment","parserJson_beacon()");
+
         try {
             //JSONArray vendor_list = jsonObject;
+            JSONArray dataArray = beacon_list.getJSONArray("data");
             Log.d("Response", beacon_list.toString());
-            JSONArray a = beacon_list.getJSONArray("categories");
+            JSONArray a = dataArray.getJSONObject(0).getJSONArray("categories");
             int cate_id = a.getJSONObject(0).getInt("id");
             get_random4(cate_id);
         }
         catch(JSONException e)
         {
             int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(getActivity(),"Get items failed!!", duration);
+            Toast toast = Toast.makeText(getActivity(),"Get Beacon failed!!", duration);
             toast.show();
             e.printStackTrace();
         }
@@ -956,15 +999,17 @@ public class SearchFragment extends Fragment {
         }.execute(URLimageI0);
     }
 
-    private void downloadimage_item (String URLimageI0,String ItemName,String BeaconName){
+    private void downloadimage_item (String URLimageI0,String ItemName,String ItemPrice, String ItemDescription,String BeaconName){
         new AsyncTask<String, Void, Recommand_Item>() {
             @Override
             protected Recommand_Item doInBackground(String... params) {
                 String url = params[0];
                 String item = params[1];
-                String location = params[2];
+                int price = Integer.parseInt(params[2]);
+                String description = params[3];
+                String location = params[4];
                 Log.d("downloadimage_item","start");
-                return getBitmapFromURL_Update(url,item,location);
+                return getBitmapFromURL_Update(url,item,price,description,location);
             }
             @Override
             protected void onPostExecute(Recommand_Item result) {
@@ -972,7 +1017,7 @@ public class SearchFragment extends Fragment {
                 m_recommand_itemlist.add(result);
                 super.onPostExecute(result);
             }
-        }.execute(URLimageI0,ItemName,BeaconName);
+        }.execute(URLimageI0,ItemName,ItemPrice,ItemDescription,BeaconName);
     }
 
     private static Bitmap getBitmapFromURL(String imageUrl) {
@@ -991,7 +1036,7 @@ public class SearchFragment extends Fragment {
         }
     }    //讀取網路圖片，型態為Bitmap
 
-    private static Recommand_Item getBitmapFromURL_Update(String imageUrl,String itemName,String itemLocation) {
+    private static Recommand_Item getBitmapFromURL_Update(String imageUrl,String itemName ,int itemPrice, String itemDescription ,String itemLocation) {
         try {
             URL url = new URL(imageUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -1000,6 +1045,8 @@ public class SearchFragment extends Fragment {
             InputStream input = connection.getInputStream();
             Recommand_Item rim = new Recommand_Item();
             rim.Item_name = itemName;
+            rim.Item_price = itemPrice;
+            rim.Item_description = itemDescription;
             rim.Item_bitmap = BitmapFactory.decodeStream(input);
             rim.Item_location = itemLocation;
             return rim;
@@ -1010,17 +1057,17 @@ public class SearchFragment extends Fragment {
         }
     }    //讀取網路圖片，型態為Bitmap
     //推播圖片-----------------------------------------------------------------------------------------------------------------------------------
-    public void createItemInfoDialog(Bitmap bmp,String title ,String describe, int location){
-        ItemInfoDialogFragment IID = ItemInfoDialogFragment.newInstance(bmp,title,describe,location);
+    public void createItemInfoDialog(Bitmap bmp,String title,String price ,String describe, int location){
+        ItemInfoDialogFragment IID = ItemInfoDialogFragment.newInstance(bmp,title,price,describe,location);
 //        IID.show(getFragmentManager(),"???");
         IID.setTargetFragment(this, INFO_DIALOG_SHOW_LOCATION);
         IID.show(getFragmentManager().beginTransaction(), "Search_InfoDialog");
     }
 
-    private void addflipper(final Bitmap Img1, final String Text1, final String Location1,
-                            final Bitmap Img2, final String Text2, final String Location2,
-                            final Bitmap Img3, final String Text3, final String Location3,
-                            final Bitmap Img4, final String Text4, final String Location4){
+    private void addflipper(final Bitmap Img1, final String Title1, final String Price1, final String Describtion1, final String Location1,
+                            final Bitmap Img2, final String Title2, final String Price2, final String Describtion2, final String Location2,
+                            final Bitmap Img3, final String Title3, final String Price3, final String Describtion3, final String Location3,
+                            final Bitmap Img4, final String Title4, final String Price4, final String Describtion4, final String Location4){
         View comm_view = (View) view.inflate(mActivity,R.layout.commview_item,null);
 
         //--------------------------------------------------------------------------------------------------------------------------
@@ -1028,7 +1075,7 @@ public class SearchFragment extends Fragment {
         linearlayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createItemInfoDialog(Img1,Text1,"",Integer.parseInt(Location1));
+                createItemInfoDialog(Img1,Title1,Price1,Describtion1,Integer.parseInt(Location1));
             }
         });
         ImageView iv_view1 = comm_view.findViewById(R.id.cvi_image1);
@@ -1038,7 +1085,7 @@ public class SearchFragment extends Fragment {
         linearlayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createItemInfoDialog(Img2,Text2,"",Integer.parseInt(Location2));
+                createItemInfoDialog(Img2,Title2,Price2,Describtion2,Integer.parseInt(Location2));
             }
         });
         ImageView iv_view2 = comm_view.findViewById(R.id.cvi_image2);
@@ -1048,7 +1095,7 @@ public class SearchFragment extends Fragment {
         linearlayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createItemInfoDialog(Img3,Text3,"",Integer.parseInt(Location3));
+                createItemInfoDialog(Img3,Title3,Price3,Describtion3,Integer.parseInt(Location3));
             }
         });
         ImageView iv_view3 = comm_view.findViewById(R.id.cvi_image3);
@@ -1058,24 +1105,25 @@ public class SearchFragment extends Fragment {
         linearlayout4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createItemInfoDialog(Img4,Text4,"",Integer.parseInt(Location4));
+                createItemInfoDialog(Img4,Title4,Price4,Describtion4,Integer.parseInt(Location4));
             }
         });
         ImageView iv_view4 = comm_view.findViewById(R.id.cvi_image4);
         TextView tv_view4 = comm_view.findViewById(R.id.cvi_text4);
         iv_view1.setImageBitmap(Img1);
-        tv_view1.setText(Text1);
+        tv_view1.setText(Title1 + "\n特惠價: $"+Price1);
         iv_view2.setImageBitmap(Img2);
-        tv_view2.setText(Text2);
+        tv_view2.setText(Title2 + "\n特惠價: $"+Price2);
         iv_view3.setImageBitmap(Img3);
-        tv_view3.setText(Text3);
+        tv_view3.setText(Title3 + "\n特惠價: $"+Price3);
         iv_view4.setImageBitmap(Img4);
-        tv_view4.setText(Text4);
+        tv_view4.setText(Title4 + "\n特惠價: $"+Price4);
         m_commercial_flipper.addView(comm_view);
 
         m_commercial_flipper.setInAnimation(mActivity,R.anim.marquee_enter_up_slow);
         m_commercial_flipper.setOutAnimation(mActivity,R.anim.marquee_exit_up_slow);
-        m_commercial_flipper.startFlipping();
+//        m_commercial_flipper.startFlipping();
+        m_commercial_flipper.showNext();
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

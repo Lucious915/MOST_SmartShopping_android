@@ -15,6 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class CustomGrid extends BaseAdapter {
+    private final static int LAYER_0_CATEGORY = 0;
+    private final static int LAYER_1_SUBCATEGORY = 1;
+    private final static int LAYER_2_ITEM = 2;
     private Context context;
     private String[] text;
     private String[] imageId;
@@ -65,7 +68,12 @@ public class CustomGrid extends BaseAdapter {
         if (convertView == null) {
             grid = new View(context);
             // 將grid_single 動態載入(image+text)
-            grid = layoutInflater.inflate(R.layout.gridview, null);
+            if(layer==LAYER_0_CATEGORY || layer==LAYER_1_SUBCATEGORY){
+                grid = layoutInflater.inflate(R.layout.gridview_noimg, null);
+            }
+            else if(layer==LAYER_2_ITEM) {
+                grid = layoutInflater.inflate(R.layout.gridview, null);
+            }
 
 
         } else {

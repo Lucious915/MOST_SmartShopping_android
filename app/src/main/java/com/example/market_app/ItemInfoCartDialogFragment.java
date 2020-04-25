@@ -103,6 +103,7 @@ public class ItemInfoCartDialogFragment extends DialogFragment {
     String ImgUrl;
     String Title;
     String Describe;
+    int[] cat_id;
 
     ImageView fiicdialog_bitmap1,fiicdialog_bitmap2,fiicdialog_bitmap3,fiicdialog_bitmap4;
     TextView fiicdialog_textview1,fiicdialog_textview2,fiicdialog_textview3,fiicdialog_textview4;
@@ -136,7 +137,7 @@ public class ItemInfoCartDialogFragment extends DialogFragment {
         Describe = getArguments().getString("Describe");
         location = getArguments().getInt("Location");
 
-        get_random4();
+        get_random4(String.valueOf(location));
 
     }
 
@@ -212,7 +213,7 @@ public class ItemInfoCartDialogFragment extends DialogFragment {
                     tv_title.setText(Title);
                     tv_describe.setText(Describe);
                     img_item.setImageBitmap(m_recommand_itemlist.get_item_bitmap(0));
-                    get_random4();
+                    get_random4(String.valueOf(cat_id[0]));
                 }
             }
         });
@@ -226,7 +227,7 @@ public class ItemInfoCartDialogFragment extends DialogFragment {
                     tv_title.setText(Title);
                     tv_describe.setText(Describe);
                     img_item.setImageBitmap(m_recommand_itemlist.get_item_bitmap(1));
-                    get_random4();
+                    get_random4(String.valueOf(cat_id[1]));
                 }
             }
         });
@@ -240,7 +241,7 @@ public class ItemInfoCartDialogFragment extends DialogFragment {
                     tv_title.setText(Title);
                     tv_describe.setText(Describe);
                     img_item.setImageBitmap(m_recommand_itemlist.get_item_bitmap(2));
-                    get_random4();
+                    get_random4(String.valueOf(cat_id[2]));
                 }
             }
         });
@@ -254,7 +255,7 @@ public class ItemInfoCartDialogFragment extends DialogFragment {
                     tv_title.setText(Title);
                     tv_describe.setText(Describe);
                     img_item.setImageBitmap(m_recommand_itemlist.get_item_bitmap(3));
-                    get_random4();
+                    get_random4(String.valueOf(cat_id[3]));
                 }
             }
         });
@@ -327,10 +328,11 @@ public class ItemInfoCartDialogFragment extends DialogFragment {
         }
     }
 
-    private void get_random4() {
-        String urlParkingArea = "http://140.129.25.75:8000/api/category-activities?random=4";
+    private void get_random4(String id) {
+        String urlParkingArea = "http://140.129.25.75:8000/api/category-activities?random=4&&category_id="+id;
         new TransTask().execute(urlParkingArea);
     }
+
 
     private void parserJson_random4(JSONObject random4item_list){
         try{
@@ -339,11 +341,13 @@ public class ItemInfoCartDialogFragment extends DialogFragment {
             String home_name[] = new String[4];
             int home_price[] = new int[4];
             String home_description[] = new String[4];
+            cat_id = new int[4];
             for(int i = 0; i < 4; i++){
                 home_url[i] = dataArray.getJSONObject(i).getString("image_url");
                 home_price[i] = dataArray.getJSONObject(i).getInt("price");
                 home_name[i] = dataArray.getJSONObject(i).getString("name")+"\n單價："+home_price[i];
                 home_description[i] = dataArray.getJSONObject(i).getString("description");
+                cat_id[i] =dataArray.getJSONObject(i).getInt("category_id");
                 downloadimage_item(home_url[i],home_name[i],home_description[i]);
             }
         }

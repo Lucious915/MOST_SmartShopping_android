@@ -79,6 +79,7 @@ public class ItemFragment extends Fragment {
     String[] catagory_list;
     String[] temp_url_list;
     JSONArray[] subcatagory_list;
+    int[] catagory_id;
     //-----------------------------------------------------------------------------------------------------------------------------------------------
     private IntentIntegrator scanIntegrator;
     //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -219,7 +220,7 @@ public class ItemFragment extends Fragment {
     }
 
      */
-
+    int current_id;
     private AdapterView.OnItemClickListener GridView_OnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -233,6 +234,8 @@ public class ItemFragment extends Fragment {
                         temp_text= new String[temp_num];
                         temp_subcat_product = new JSONArray[temp_num];
                         text_cat_title.setText(catagory_list[position]);
+                        current_id = catagory_id[position];
+                        Log.d("current_id", String.valueOf(current_id));
                         for (int i = 0; i < temp_num; i++) {
                             try{
                                 JSONObject o = temp_jsonarr.getJSONObject(i);
@@ -273,7 +276,7 @@ public class ItemFragment extends Fragment {
                                 temp_text[i]=o.getString("name")+"\n單價："+o.getInt("price")+"元";
                                 temp_img[i]=o.getString("image_url");
                                 temp_id[i]= String.valueOf(o.getInt("id"));
-                                temp_discrip[i]=o.getString("description");
+                                temp_discrip[i]=o.getString("description")+"\n\n"+o.getString("specification");
                                 //temp_subcat_product[i]=o.getJSONArray("products");
                                 Log.d("name of subcat", temp_text[i]);
                             }catch(JSONException z){
@@ -292,7 +295,7 @@ public class ItemFragment extends Fragment {
                     final TextView text_ = view.findViewById(R.id.grid_text);
                     final String str_item_info = text_.getText().toString();
 
-                    createItemInfoDialog(temp_img[position],str_item_info,temp_discrip[position],0);
+                    createItemInfoDialog(temp_img[position],str_item_info,temp_discrip[position],current_id);
                     post_id(temp_id[position]);
 
                     break;
@@ -372,12 +375,10 @@ public class ItemFragment extends Fragment {
                                 get_product(result);
                                 Toast.makeText(getActivity(),"掃描成功，讀取中...", Toast.LENGTH_SHORT).show();
                             }
-
                         }
                     }
                 }
         }
-
     }
 
     private AdapterView.OnItemClickListener onClickListView = new AdapterView.OnItemClickListener(){
@@ -444,7 +445,8 @@ public class ItemFragment extends Fragment {
                 temp_title=o.getString("name")+"\n單價："+o.getInt("price")+"元";
                 temp_disc=o.getString("description");
                 temp_img=o.getString("image_url");
-                createItemInfoDialog(temp_img,temp_title,temp_disc,0);
+                int temp_id=o.getJSONObject("subcategory").getInt("category_id");
+                createItemInfoDialog(temp_img,temp_title,temp_disc,temp_id);
             }catch(JSONException z){
                 z.printStackTrace();
             }
@@ -569,12 +571,14 @@ public class ItemFragment extends Fragment {
             JSONArray c = cat_list.getJSONArray("data");
             cat_num=c.length();
             catagory_list = new String[cat_num];
+            catagory_id = new int[cat_num];
             subcatagory_list = new JSONArray[cat_num];
             for (int i = 0; i < cat_num; i++) {
                 JSONObject o = c.getJSONObject(i);
                 try {
 //                    get_items(String.valueOf(i+1));
                     catagory_list[i]=o.getString("name");
+                    catagory_id[i]=o.getInt("id");
                     subcatagory_list[i] = o.getJSONArray("subcategories");
                     Log.d("catagory_list", catagory_list[i]);
                 }catch(JSONException z){
@@ -618,8 +622,8 @@ public class ItemFragment extends Fragment {
         catch(JSONException e)
         {
             int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(getActivity(),"Get items failed!!", duration);
-            toast.show();
+//            Toast toast = Toast.makeText(getActivity(),"Get items failed!!", duration);
+//            toast.show();
             e.printStackTrace();
         }
     }

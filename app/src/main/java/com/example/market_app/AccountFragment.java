@@ -106,7 +106,8 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 clk_cnt=0;
-                get_orders("1");
+                //get_orders("1");
+                get_all_orders();
             }
         });
         btn_last =(Button) view.findViewById(R.id.button_last_);
@@ -127,7 +128,8 @@ public class AccountFragment extends Fragment {
         record_view.setAdapter(new PicassoAdapter(view.getContext(),orders_list,orders_list,id_list));
         record_view.setOnItemClickListener(choose_record);
 
-        get_orders("1");
+        //get_orders("1");
+        get_all_orders();
 
         return view;
     }
@@ -185,8 +187,33 @@ public class AccountFragment extends Fragment {
         }
     };
 
+    private void get_all_orders() {
+        String urlParkingArea = "http://140.129.25.75:8000/api/orders/";
 
-    private void get_orders(String param) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, //!!!!!!!!!!!!!!POST HERE
+                urlParkingArea,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("ItemFragment","get_product onResponse()");
+                        Log.d("Response", response.toString());
+                        parserJson_all_orders(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Log.e(TAG, "error : " + error.toString());
+                        Log.d("ERROR","error => "+error.toString());
+                        // update_done=false;
+                    }
+                }
+        );
+        Volley.newRequestQueue(getActivity()).add(jsonObjectRequest);
+    }
+
+
+    private void get_orders(final String param) {
         String urlParkingArea = "http://140.129.25.75:8000/api/orders/"+param;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, //!!!!!!!!!!!!!!POST HERE
                 urlParkingArea,
@@ -194,7 +221,14 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d("Response", response.toString());
-                        parserJson_orders(response);
+                        try{
+                            int temp_ = Integer.valueOf(param);
+                            Log.d("Integer.getInteger",String.valueOf(temp_));
+                            parserJson_orders(response,temp_-1);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            Log.d("Integer.getInteger",param);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -209,25 +243,22 @@ public class AccountFragment extends Fragment {
         Volley.newRequestQueue(getActivity()).add(jsonArrayRequest);
     }
 
-    int orders_num;
-    //String[] orders_list;
-    JSONArray[] orders_products;
-    private void parserJson_orders(JSONArray ord_list) {
+    int[] all_order_id;
+    private void parserJson_all_orders(JSONObject ord_list) {
         try {
-            //JSONArray vendor_list = jsonObject;
-            Log.d("Response", ord_list.toString());
-            orders_num=ord_list.length();
-            orders_list = new String[orders_num];
-            id_list = new String[orders_num];
-            img_list = new String[orders_num];
-            orders_products = new JSONArray[orders_num];
-            //subcatagory_list = new JSONArray[cat_num];
-            //mThumbIds = new String[cat_num];
-            for (int i = 0; i < orders_num; i++) {
-                JSONObject o = ord_list.getJSONObject(i);
+            JSONArray order_list = ord_list.getJSONArray("data");
+            Log.d("Response", order_list.toString());
+            int order_num =order_list.length();
+            all_order_id = new int[order_num];
+            id_list = new String[order_num];
+            img_list= new String[order_num];
+            orders_list= new String[order_num];
+            orders_products = new JSONArray[order_num];
+            for (int i = 0; i < order_num; i++) {
+                JSONObject o = order_list.getJSONObject(i);
                 try {
+                    all_order_id[i] = o.getInt("id");
                     orders_list[i]="購買日期："+o.getString("created_at");
-                    orders_products[i]=o.getJSONArray("order_products");
                     id_list[i]="點擊查看詳細訂單";
                     img_list[i]= "https://img.icons8.com/wired/64/000000/list.png";
                 }catch(JSONException z){
@@ -239,6 +270,54 @@ public class AccountFragment extends Fragment {
             //loadcatlist();
 
             record_view.setAdapter(new PicassoAdapter(view.getContext(),img_list,orders_list,id_list));
+
+
+            for(int i=0;i<order_num;i++){
+                get_orders(String.valueOf(all_order_id[i]));
+            }
+
+        }
+        catch(JSONException e)
+        {
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getActivity(),"Get failed!!", duration);
+            toast.show();
+            e.printStackTrace();
+        }
+    }
+
+
+
+    int orders_num;
+    //String[] orders_list;
+    JSONArray[] orders_products;
+    private void parserJson_orders(JSONArray ord_list,int cnt) {
+        try {
+            //JSONArray vendor_list = jsonObject;
+            Log.d("Response", ord_list.toString());
+            orders_num=ord_list.length();
+            //orders_list = new String[orders_num];
+            //id_list = new String[orders_num];
+            //img_list = new String[orders_num];
+            //orders_products = new JSONArray[orders_num];
+            //subcatagory_list = new JSONArray[cat_num];
+            //mThumbIds = new String[cat_num];
+            for (int i = 0; i < orders_num; i++) {
+                JSONObject o = ord_list.getJSONObject(i);
+                try {
+                    //orders_list[i]="購買日期："+o.getString("created_at");
+                    orders_products[cnt]=o.getJSONArray("order_products");
+                    //id_list[i]="點擊查看詳細訂單";
+                    //img_list[i]= "https://img.icons8.com/wired/64/000000/list.png";
+                }catch(JSONException z){
+                    z.printStackTrace();
+                }
+            }
+            //orders_list = new String[cnt];
+            //id_list = new String[cnt];
+            //loadcatlist();
+
+            //record_view.setAdapter(new PicassoAdapter(view.getContext(),img_list,orders_list,id_list));
 
         }
         catch(JSONException e)

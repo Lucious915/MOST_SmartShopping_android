@@ -27,10 +27,11 @@ public class ItemInfoDialogFragment extends DialogFragment {
 
     Bitmap bmp;
     String Title;
+    String Price;
     String Describe;
     int location;
 
-    public static ItemInfoDialogFragment newInstance(Bitmap bm, String Title, String Describe, int location) {
+    public static ItemInfoDialogFragment newInstance(Bitmap bm, String Title, String Price, String Describe, int location) {
         ItemInfoDialogFragment f = new ItemInfoDialogFragment();
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -40,6 +41,7 @@ public class ItemInfoDialogFragment extends DialogFragment {
         Bundle args = new Bundle();
         args.putByteArray("Image",byteArray);
         args.putString("Title",Title);
+        args.putString("Price",Price);
         args.putString("Describe",Describe);
         args.putInt("Location",location);
 
@@ -54,6 +56,7 @@ public class ItemInfoDialogFragment extends DialogFragment {
         byte[] byteArray = getArguments().getByteArray("Image");
         bmp = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
         Title = getArguments().getString("Title");
+        Price = getArguments().getString("Price");
         Describe = getArguments().getString("Describe");
         location = getArguments().getInt("Location");
 
@@ -86,7 +89,7 @@ public class ItemInfoDialogFragment extends DialogFragment {
         img_item = (ImageView) m_dialog.findViewById(R.id.img_item);
         img_item.setImageBitmap(bmp);
         tv_title = (TextView) m_dialog.findViewById(R.id.tv_title);
-        tv_title.setText(Title);
+        tv_title.setText(Title + "\n特惠價: $"+Price);
         tv_describe = (TextView) m_dialog.findViewById(R.id.tv_describe);
         tv_describe.setText(Describe);
 

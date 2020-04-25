@@ -29,7 +29,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|center_horizontal"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/cvi_text1"
@@ -70,7 +71,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|center_horizontal"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/cvi_text2"
@@ -111,7 +113,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|center_horizontal"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/cvi_text3"
@@ -152,7 +155,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|center_horizontal"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/cvi_text4"

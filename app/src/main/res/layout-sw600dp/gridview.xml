@@ -35,7 +35,7 @@
                 android:text="."
                 android:textAlignment="center"
                 android:textColor="@color/zxing_status_text"
-                android:textSize="25sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
