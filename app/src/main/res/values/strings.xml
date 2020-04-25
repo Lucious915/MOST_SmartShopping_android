@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Market_app</string>
+    <string name="title_home">首頁</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_shoppingcart">商品搜尋</string>
+    <string name="title_person">Customer</string>
+    <string name="title_location">位置查詢</string>
+    <string name="button_reload">重新查詢</string>
+    <string name="button_last">上一頁</string>
+    <string name="button_clear">清空</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="qr_code">QR Code</string>
+</resources>
