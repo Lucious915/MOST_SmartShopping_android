@@ -65,6 +65,8 @@ import java.net.URL;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -184,26 +186,273 @@ public class SearchFragment extends Fragment {
     final int[] ResultToPosition ={101,100,201,200,301,300,401,400,501,500,
             601,600,701,700,801,800,901,900,1001,1000,
             1101,1100,1201,1200,1301,1300,1401,1400,1501,1500};
+    final int[] PositiontoGraphd ={100,101,102,200,201,202,300,301,302,400,401,402
+    ,500,501,502,600,601,602,700,701,702,800,801,802,900,901,902,1000,1001,1002
+    ,1100,1101,1102,1200,1201,1202,1300,1301,1302,1400,1401,1402,1500,1501,1502};
     final int[] ResultToBeaconID ={5,4,8,7,11,10,14,13,17,16
             ,20,19,23,22,26,25,29,28,32,31
             ,35,34,38,37,41,40,44,43,47,46};
     //路徑規劃-----------------------------------------------------------------------------------------------------------------------------------
     public int BR=0;
     public int pre_nowp=0;  //先前位置
+    public int pre_nowpd=0;  //先前位置Dijkstra專用
     public int nowp=0;      //現在位置
+    public int nowpd=0;      //現在位置Dijkstra專用
     public int nowpX=0;    //現在位置X
     public int nowpY=0;     //現在位置Y
-    public int destination=0;   //目的地位置
+    public int destination=101;   //目的地位置
+    public int destinationd=0;   //目的地位置Dijkstra專用
     public int destinationX=0;  //目的地位置X
     public int destinationY=0;  //目的地位置Y
     public int temp=0;         //暫存位置
+    public int tempd=0;         //暫存位置Dijkstra專用
     public int tempX=0;
     public int tempY=0;
     public int routesize=0;
     public int tempk=0;
     public int tempkX=0;
     public int tempkY=0;
+    public int parent[] = new int[45]; // 記錄各個點在最短路徑樹上的父親是誰
+
     public ArrayList<Integer> route_arr = new ArrayList<Integer>(); //路徑位置
+
+    public ArrayList<Integer> route_arrd = new ArrayList<Integer>(); //路徑位置
+    public ArrayList<Integer> ro_arrd = new ArrayList<Integer>(); //路徑位置
+
+    //Dijkstra 最短路徑演算法--------------
+    //45*45  總共45個點 每個點到其他點的距離 沒有相通設為0
+    public int graphd[][] = new int[][]{
+            {0, 1, 0, 0, 0, 0, 0, 0, 0, 0 //[0]到其他點的距離
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {1, 0, 1, 0, 0, 0, 0, 0, 0, 0  //[1]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 1, 0, 0, 0, 0  //[2]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 0, 0, 0, 0, 0 //[3]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 1, 0, 1, 0, 0, 0, 0//[4]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 0, 0, 0, 1, 0//[5]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 1, 0, 0//[6]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 1, 0, 1, 0//[7]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 1, 0, 0//[8]
+            , 0, 1, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[9]
+            , 1, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 1//[10]
+            , 0, 1, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[11]
+            , 1, 0, 0, 0, 1, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[12]
+            , 0, 0, 0, 1, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0, 0, 0, 0//[13]
+            , 0, 0, 1, 0, 1, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[14]
+            , 0, 0, 0, 1, 0, 0, 0, 1, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[15]
+            , 0, 0, 0, 0, 0, 0, 1, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[16]
+            , 0, 0, 0, 0, 0, 1, 0, 1, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[17]
+            , 0, 0, 0, 0, 0, 0, 1, 0, 0, 0
+            , 1, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[18]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[19]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 1, 0
+            , 1, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[20]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+            , 0, 0, 0, 1, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[21]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 1, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[22]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 1, 0, 1, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[23]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 1, 0, 0, 0, 1, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[24]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 1, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[25]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 1, 0, 1, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[26]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[27]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 1, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[28]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 1, 0, 1
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[29]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 1, 0
+            , 0, 0, 1, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[30]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 1, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[31]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 1, 0, 1, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[32]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 1, 0, 0, 0, 1, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[33]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 1, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[34]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 1, 0, 1, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[35]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 1, 0, 0, 0, 1, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[36]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 1, 0, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[37]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 1, 0, 1, 0
+            , 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[38]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 1, 0, 0
+            , 0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[39]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[40]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+            , 0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0//[41]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 1, 0, 0, 0, 1},
+            {0, 1, 0, 0, 0, 0, 0, 0, 0, 0//[42]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 1, 0},
+            {0, 1, 0, 0, 0, 0, 0, 0, 0, 0//[43]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 1, 0, 1},
+            {0, 1, 0, 0, 0, 0, 0, 0, 0, 0//[44]
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 1, 0, 1, 0},
+    };
+    public static final int Vd=45;
+    public int distd[] = new int[Vd];
+    public Boolean sptSetd[] = new Boolean[Vd];
+    public int srcd;
+
     //商品資訊-----------------------------------------------------------------------------------------------------------------------------------
     public String line;
     public String [] m_catagory_list;
@@ -406,12 +655,12 @@ public class SearchFragment extends Fragment {
                 if(b){
                     startBleScan();
                     blescanning = true;
-                    route();
+                    dijkstra();
                 }
                 else {
                     mScanner.scanLeDevice(-1, false);
                     blescanning = false;
-                    route();
+                    dijkstra();
                 }
             }
         });
@@ -531,8 +780,7 @@ public class SearchFragment extends Fragment {
                 m_tv_predictresult.setText(""+most_index);
                 m_tv_predictlocation.setText("Location "+ ((most_index/4)));
                 nowp = ResultToPosition[predict_location];
-                route();
-
+                dijkstra();
             }
         });
         return max_index;
@@ -555,101 +803,98 @@ public class SearchFragment extends Fragment {
         startActivity(intent);
     }
 
+    /***********Dijkstra 最短路徑演算法******************/
+    int minDistance() {
+        int min = 10000, min_index=-1;
+        for (int v = 0; v < Vd; v++){
+            //Log.d("dd2", "mm vvv= "+v);
+            if (sptSetd[v] == false && distd[v] <= min) {
+                min = distd[v];
+                min_index = v;
+            }
+        }
+        return min_index;
+    }
+    void printSolution(int dist[], int n) {
+        System.out.println("Vertex Distance from Source");
+        for (int i = 0; i < Vd; i++) {
+            System.out.println(i + " \t\t " + dist[i]);
+            Log.d("dd1", "dist["+ i +"] = " + dist[i]);
+        }
+    }
+    void find_path(int x)   // 印出由起點到x點的最短路徑
+    {
+        if (x != parent[x]) // 先把之前的路徑都印出來
+            find_path(parent[x]);
+        Log.d("dd2", "x = " + x);
+        ro_arrd.add(x);
 
-    //路徑規劃-----------------------------------------------------------------------------------------------------------------------------------
-    private void route() {
+    }
 
+    void dijkstra() {
         if(blescanning) {
+            /*************前置處理******************/
+
             destinationX = destination / 100;
             destinationY = destination % 100;
             nowpX = nowp / 100;
             nowpY = nowp % 100;
-            if (pre_nowp != nowp && nowp > 300 && nowp <= 1501) {
-                pre_nowp = nowp;
-            }
             temp = nowp;
             tempX = nowpX;
             tempY = nowpY;
+            route_arrd.clear();
             route_arr.clear();
-            // 判斷路徑規則 先判斷 Y 再判斷 X
-            route_arr.add(temp);
-//            while (tempY < 2) {
-//                tempY++;
-//                temp = (tempX * 100) + tempY;
-//                route_arr.add(temp);
-//            }
-            while (temp != destination) {
-                Log.d("SearchFragment", "" + temp);
-
-                if(destinationX==tempX){
-                    if(destinationY < tempY){
-                        tempY--;
-                    }
-                    else if(destinationY > tempY){
-                        tempY++;
-                    }
+            ro_arrd.clear();
+            //route_arrd.add(temp);
+            //位置編號轉換
+            for(int d = 0; d < 45; d++){
+                if(destination==PositiontoGraphd[d]){
+                    destinationd=d;
                 }
-                else if(destinationX > tempX){
-                    if(tempY < 2){
-                        tempY++;
-                    }
-                    else{
-                        tempX++;
-                    }
+                if(nowp==PositiontoGraphd[d]){
+                    nowpd = d;
+                    tempd = d;
                 }
-                else if(destinationX < tempX){
-                    if(tempY < 2){
-                        tempY++;
-                    }
-                    else{
-                        tempX--;
-                    }
-                }
-
-        //            if ((destinationY - tempY) > 0){
-        //                tempY++;
-        //            }
-        //            else if((destinationY - tempY) == 0){
-
-//                do {
-//                    if ((destinationX - tempX) > 0) {
-//                        if (tempY >= 0 && tempY <= 1) {
-//                            tempY++;
-//
-//                        } else {
-//                            tempX++;
-//                        }
-//                    } else if ((destinationX - tempX) == 0) {
-//                        if (tempY != destinationY) {
-//                            tempY--;
-//                        }
-//                    } else if ((destinationX - tempX) < 0) {
-//                        if (tempY >= 0 && tempY <= 1) {
-//                            tempY++;
-//                        } else {
-//                            tempX--;
-//                        }
-//                    }
-//                    temp = (tempX * 100) + tempY;
-//                    route_arr.add(temp);
-//                } while ((destinationY - tempY) != 0);
-
-        //            }
-        //            else if ((destinationY - nowpY) < 0){
-        //                tempY--;
-        //            }
-                temp = (tempX * 100) + tempY;
-                route_arr.add(temp);
-                Log.d("route", "temp = " + temp);
             }
-            m_gesture_imageview.assignArray(route_arr);//更新路徑點
+            srcd = nowpd; //src 目前位置到其他點最短距離
+
+            /************Dijkstra 最短路徑演算法********/
+            Log.d("dd1", "Dijkstra  1");
+            for (int i = 0; i < Vd; i++) {
+                distd[i] = 10000; //無路徑
+                sptSetd[i] = false;
+            }
+            distd[srcd] = 0;
+            parent[srcd] = srcd;
+                for (int count = 0; count < Vd-1; count++) {
+                int u = minDistance();
+                //Log.d("dd2", "u = "+u);
+                sptSetd[u] = true;
+                for (int v = 0; v < Vd; v++) {
+                    if (!sptSetd[v] && graphd[u][v] != 0 &&
+                            distd[u] != 10000 &&
+                            distd[u] + graphd[u][v] < distd[v]) {
+
+                        distd[v] = distd[u] + graphd[u][v];
+                        parent[v] = u; //記錄各個點在最短路徑樹上的父親是誰
+                    }
+                }
+            }
+            find_path(destinationd);
+            printSolution(distd, Vd);
+            //編號轉換
+            for (Integer number : ro_arrd) {
+                route_arrd.add( PositiontoGraphd[number]);
+            }
+            m_gesture_imageview.assignArray(route_arrd);//更新畫面路徑點
         }
         else{
+            route_arrd.clear();
             route_arr.clear();
-            route_arr.add(destination);
-            m_gesture_imageview.assignArray(route_arr);
+            ro_arrd.clear();
+            route_arrd.add(destination);
+            m_gesture_imageview.assignArray(route_arrd);
         }
-
     }
 
     //取得資料-----------------------------------------------------------------------------------------------------------------------------------
@@ -969,7 +1214,8 @@ public class SearchFragment extends Fragment {
                     destination =Integer.parseInt(m_subcatagory_location_list[position]);
                     Log.d("destination","destination"+destination);
                     BR=0;
-                    route();
+                    //route();
+                    dijkstra();
 //                    jsonmode= 3;//推薦商品
 //                    new TransTask().execute
 //                            ("http://140.129.25.75:8000/api/category-activities?random=4");
@@ -1137,7 +1383,8 @@ public class SearchFragment extends Fragment {
                     m_tv_title.setText("目標商品： " + bundle.getString("name"));
                     Log.d("destination","destination"+destination);
                     BR=0;
-                    route();
+
+                    dijkstra();
                 } else if (resultCode == Activity.RESULT_CANCELED) {
 
                 }

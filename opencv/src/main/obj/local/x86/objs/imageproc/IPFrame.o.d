@@ -1,23 +1,23 @@
 ./obj/local/x86/objs/imageproc/IPFrame.o: jni/imageproc/IPFrame.cpp \
   jni/common/..\utilbase.h jni/common/../localdefines.h \
   jni/imageproc/IPFrame.h \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\queue \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\queue \
   jni/imageproc/../opencv3/include\opencv2/opencv.hpp \
   jni/imageproc/../opencv3/include\opencv2/opencv_modules.hpp \
   jni/imageproc/../opencv3/include\opencv2/core.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/cvdef.h \
   jni/imageproc/../opencv3/include\opencv2/core/hal/interface.h \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstddef \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdint \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstddef \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdint \
   jni/imageproc/../opencv3/include\opencv2/core/version.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/base.hpp \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\climits \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\algorithm \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\climits \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\algorithm \
   jni/imageproc/../opencv3/include\opencv2/core/cvstd.hpp \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstring \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cctype \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdlib \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cmath \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstring \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cctype \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdlib \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cmath \
   jni/imageproc/../opencv3/include\opencv2/core/ptr.inl.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/neon_utils.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/traits.hpp \
@@ -25,15 +25,15 @@
   jni/imageproc/../opencv3/include\opencv2/core/saturate.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/fast_math.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/types.hpp \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cfloat \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cfloat \
   jni/imageproc/../opencv3/include\opencv2/core/mat.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/bufferpool.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/mat.inl.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/persistence.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/operations.hpp \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdio \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdio \
   jni/imageproc/../opencv3/include\opencv2/core/cvstd.inl.hpp \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\complex \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\complex \
   jni/imageproc/../opencv3/include\opencv2/core/utility.hpp \
   jni/imageproc/../opencv3/include\opencv2/core/core_c.h \
   jni/imageproc/../opencv3/include\opencv2/core/types_c.h \
@@ -48,19 +48,19 @@
   jni/imageproc/../opencv3/include\opencv2/calib3d/calib3d_c.h \
   jni/imageproc/../opencv3/include\opencv2/flann.hpp \
   jni/imageproc/../opencv3/include\opencv2/flann/flann_base.hpp \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cassert \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cassert \
   jni/imageproc/../opencv3/include\opencv2/flann/general.h \
   jni/imageproc/../opencv3/include\opencv2/flann/matrix.h \
   jni/imageproc/../opencv3/include\opencv2/flann/params.h \
   jni/imageproc/../opencv3/include\opencv2/flann/any.h \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\stdexcept \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\typeinfo \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\iostream \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\map \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\stdexcept \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\typeinfo \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\iostream \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\map \
   jni/imageproc/../opencv3/include\opencv2/flann/saving.h \
   jni/imageproc/../opencv3/include\opencv2/flann/nn_index.h \
   jni/imageproc/../opencv3/include\opencv2/flann/result_set.h \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\set \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\set \
   jni/imageproc/../opencv3/include\opencv2/flann/all_indices.h \
   jni/imageproc/../opencv3/include\opencv2/flann/kdtree_index.h \
   jni/imageproc/../opencv3/include\opencv2/flann/dynamic_bitset.h \
@@ -76,8 +76,8 @@
   jni/imageproc/../opencv3/include\opencv2/flann/hierarchical_clustering_index.h \
   jni/imageproc/../opencv3/include\opencv2/flann/lsh_index.h \
   jni/imageproc/../opencv3/include\opencv2/flann/lsh_table.h \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\iomanip \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\unordered_map \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\iomanip \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\unordered_map \
   jni/imageproc/../opencv3/include\opencv2/flann/autotuned_index.h \
   jni/imageproc/../opencv3/include\opencv2/flann/ground_truth.h \
   jni/imageproc/../opencv3/include\opencv2/flann/index_testing.h \
@@ -113,7 +113,7 @@
   jni/imageproc/../opencv3/include\opencv2/stitching/detail/matchers.hpp \
   jni/imageproc/../opencv3/include\opencv2/stitching/detail/motion_estimators.hpp \
   jni/imageproc/../opencv3/include\opencv2/stitching/detail/util.hpp \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\list \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\list \
   jni/imageproc/../opencv3/include\opencv2/stitching/detail/util_inl.hpp \
   jni/imageproc/../opencv3/include\opencv2/stitching/detail/camera.hpp \
   jni/imageproc/../opencv3/include\opencv2/stitching/detail/exposure_compensate.hpp \
@@ -127,9 +127,9 @@
   jni/imageproc/../opencv3/include\opencv2/video/tracking_c.h \
   jni/imageproc/../opencv3/include\opencv2/videostab.hpp \
   jni/imageproc/../opencv3/include\opencv2/videostab/stabilizer.hpp \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\ctime \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\ctime \
   jni/imageproc/../opencv3/include\opencv2/videostab/global_motion.hpp \
-  C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\fstream \
+  C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\fstream \
   jni/imageproc/../opencv3/include\opencv2/videostab/optical_flow.hpp \
   jni/imageproc/../opencv3/include\opencv2/videostab/motion_core.hpp \
   jni/imageproc/../opencv3/include\opencv2/videostab/outlier_rejection.hpp \
@@ -151,7 +151,7 @@ jni/common/../localdefines.h:
 
 jni/imageproc/IPFrame.h:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\queue:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\queue:
 
 jni/imageproc/../opencv3/include\opencv2/opencv.hpp:
 
@@ -163,27 +163,27 @@ jni/imageproc/../opencv3/include\opencv2/core/cvdef.h:
 
 jni/imageproc/../opencv3/include\opencv2/core/hal/interface.h:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstddef:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstddef:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdint:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdint:
 
 jni/imageproc/../opencv3/include\opencv2/core/version.hpp:
 
 jni/imageproc/../opencv3/include\opencv2/core/base.hpp:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\climits:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\climits:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\algorithm:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\algorithm:
 
 jni/imageproc/../opencv3/include\opencv2/core/cvstd.hpp:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstring:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstring:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cctype:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cctype:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdlib:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdlib:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cmath:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cmath:
 
 jni/imageproc/../opencv3/include\opencv2/core/ptr.inl.hpp:
 
@@ -199,7 +199,7 @@ jni/imageproc/../opencv3/include\opencv2/core/fast_math.hpp:
 
 jni/imageproc/../opencv3/include\opencv2/core/types.hpp:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cfloat:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cfloat:
 
 jni/imageproc/../opencv3/include\opencv2/core/mat.hpp:
 
@@ -211,11 +211,11 @@ jni/imageproc/../opencv3/include\opencv2/core/persistence.hpp:
 
 jni/imageproc/../opencv3/include\opencv2/core/operations.hpp:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdio:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cstdio:
 
 jni/imageproc/../opencv3/include\opencv2/core/cvstd.inl.hpp:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\complex:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\complex:
 
 jni/imageproc/../opencv3/include\opencv2/core/utility.hpp:
 
@@ -245,7 +245,7 @@ jni/imageproc/../opencv3/include\opencv2/flann.hpp:
 
 jni/imageproc/../opencv3/include\opencv2/flann/flann_base.hpp:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cassert:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\cassert:
 
 jni/imageproc/../opencv3/include\opencv2/flann/general.h:
 
@@ -255,13 +255,13 @@ jni/imageproc/../opencv3/include\opencv2/flann/params.h:
 
 jni/imageproc/../opencv3/include\opencv2/flann/any.h:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\stdexcept:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\stdexcept:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\typeinfo:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\typeinfo:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\iostream:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\iostream:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\map:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\map:
 
 jni/imageproc/../opencv3/include\opencv2/flann/saving.h:
 
@@ -269,7 +269,7 @@ jni/imageproc/../opencv3/include\opencv2/flann/nn_index.h:
 
 jni/imageproc/../opencv3/include\opencv2/flann/result_set.h:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\set:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\set:
 
 jni/imageproc/../opencv3/include\opencv2/flann/all_indices.h:
 
@@ -301,9 +301,9 @@ jni/imageproc/../opencv3/include\opencv2/flann/lsh_index.h:
 
 jni/imageproc/../opencv3/include\opencv2/flann/lsh_table.h:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\iomanip:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\iomanip:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\unordered_map:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\unordered_map:
 
 jni/imageproc/../opencv3/include\opencv2/flann/autotuned_index.h:
 
@@ -375,7 +375,7 @@ jni/imageproc/../opencv3/include\opencv2/stitching/detail/motion_estimators.hpp:
 
 jni/imageproc/../opencv3/include\opencv2/stitching/detail/util.hpp:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\list:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\list:
 
 jni/imageproc/../opencv3/include\opencv2/stitching/detail/util_inl.hpp:
 
@@ -403,11 +403,11 @@ jni/imageproc/../opencv3/include\opencv2/videostab.hpp:
 
 jni/imageproc/../opencv3/include\opencv2/videostab/stabilizer.hpp:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\ctime:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\ctime:
 
 jni/imageproc/../opencv3/include\opencv2/videostab/global_motion.hpp:
 
-C:/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\fstream:
+C:/Users/robin/AppData/Local/Android/Sdk/ndk/android-ndk-r14b-windows-x86_64/android-ndk-r14b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\fstream:
 
 jni/imageproc/../opencv3/include\opencv2/videostab/optical_flow.hpp:
 

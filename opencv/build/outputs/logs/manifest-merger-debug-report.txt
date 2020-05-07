@@ -1,37 +1,37 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
+ADDED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
 	package
-		ADDED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:11-43
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
+		ADDED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:11-43
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-		ADDED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+		ADDED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
+		ADDED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
 	android:versionCode
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-		ADDED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml:1:1-46
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+		ADDED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml:1:1-46
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
 uses-sdk
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-		ADDED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+		ADDED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-		ADDED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
-		INJECTED from D:\05_Laboratory\DaTung_Indoor_Positioning\Android_project\Market_app_fnn_0112\Market_app_fnn\opencv\src\main\AndroidManifest.xml
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+		ADDED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
+		INJECTED from D:\APP\buycar\Final\JMart_IndoorPosition_20200504_sub\MOST_SmartShopping_android-master\opencv\src\main\AndroidManifest.xml
